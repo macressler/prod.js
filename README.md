@@ -13,16 +13,16 @@ define([
 ], function(prod, util) {
   return new prod.Suite('util', {
     "camelize": function() {
-      this.assertEquals(util.camelize("foo_bar"), "FooBar");
+      this.assertEquals("FooBar", util.camelize("foo_bar"));
     },
 
     "capitalize": function() {
-      this.assertEquals(util.capitalize("huge"), "Huge");
+      this.assertEquals("Huge", util.capitalize("huge"));
     },
 
     "numProperties": function() {
-      this.assertEquals(0, util.numProperties({}));
-      this.assertEquals(1, util.numProperties({foo: 'bar'}));
+      this.assertEquals(util.numProperties({}), 0);
+      this.assertEquals(util.numProperties({foo: 'bar'}), 1);
 
       var foo = function() {
         this.foo = 'bar';
@@ -32,14 +32,14 @@ define([
       }
       bar.prototype = new foo();
 
-      this.assertEquals(util.numProperties(new bar()), 1);
+      this.assertEquals(1, util.numProperties(new bar()));
     },
 
     "clearProperties": function() {
       var obj = {foo: 123, bar: 456};
       util.clearProperties(obj);
-      this.assertEquals(typeof(obj.foo), 'undefined');
-      this.assertEquals(typeof(obj.bar), 'undefined');
+      this.assertEquals('undefined', typeof(obj.foo));
+      this.assertEquals('undefined', typeof(obj.bar));
     },
   });
 });

@@ -205,14 +205,14 @@ define(function() {
     }
   };
 
-  Context.prototype.assertSame = function(actual, expected, message) {
+  Context.prototype.assertSame = function(expected, actual, message) {
     if (typeof(message) == "undefined") {
       message = "expected: " + test.serialize(expected) + ", got: " + test.serialize(actual);
     }
     this.assert(actual === expected, message);
   };
 
-  Context.prototype.assertEquals = function(actual, expected, message) {
+  Context.prototype.assertEquals = function(expected, actual, message) {
     if (typeof(message) == "undefined") {
       message = "expected: " + test.serialize(expected) + ", got: " + test.serialize(actual);
     }
