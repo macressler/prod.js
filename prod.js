@@ -454,6 +454,9 @@ define(function() {
       else if (md = lines[i].match(/^([^@]+)?@(.+?:\d+)$/)) {
         callstack.push("at " + md[2]);
       }
+      else {
+        callstack.push(lines[i]);
+      }
     }
     this.print({
       type: 'failure',
