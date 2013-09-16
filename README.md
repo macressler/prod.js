@@ -48,6 +48,9 @@ Example Project
 
 Check out the example project in the example directory of this
 repository. If you have phantomjs installed, you can run the tests
-by running:
+by running this command from the example directory:
 
     phantomjs scripts/test.js
+
+Otherwise, just open the `example/test/test.html` file in your browser
+after cloning this repository.
