@@ -1,7 +1,7 @@
 prod.js
 =======
 
-prod.js is a simple AMD javascript testing library.
+prod.js is a simple AMD javascript testing library with asynchronous support.
 
 Test Example
 ------------
