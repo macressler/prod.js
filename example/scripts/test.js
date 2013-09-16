@@ -60,22 +60,7 @@ Output.prototype = {
       return;
     }
 
-    if (this._callstack) {
-      if (msg.match(/^at /)) {
-        if (this._verbose) {
-          this.println(msg);
-        }
-        else {
-          this._backtraces[this._fullName].push(msg);
-        }
-        return;
-      }
-      else {
-        this._callstack = false;
-        this._level--;
-      }
-    }
-
+    var callstack = false;
     var parts = msg.split(/: +/);
     if (parts[0] == 'suite') {
       this._suiteName = parts[1];
@@ -100,14 +85,31 @@ Output.prototype = {
           this._fullName = this._suiteName + '/' + this._testName;
           this._backtraces[this._fullName] = [];
         }
-        this._level++;
-        this._callstack = true;
+        callstack = true;
       }
       else {
         if (!this._verbose) {
           this.print('.');
         }
       }
+    }
+    else if (this._callstack) {
+      callstack = true;
+      if (this._verbose) {
+        this.println(msg);
+      }
+      else {
+        this._backtraces[this._fullName].push(msg);
+      }
+    }
+
+    if (this._callstack && !callstack) {
+      this._callstack = false;
+      this._level--;
+    }
+    else if (!this._callstack && callstack) {
+      this._callstack = true;
+      this._level++;
     }
   },
 
