@@ -271,7 +271,7 @@ define(function() {
       }
     }
     if (!result) {
-      assert(false, message);
+      this.assert(false, message);
     }
   };
 
