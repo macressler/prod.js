@@ -42,3 +42,12 @@ Test Example
         },
       });
     });
+
+Example Project
+---------------
+
+Check out the example project in the example directory of this
+repository. If you have phantomjs installed, you can run the tests
+by running:
+
+    phantomjs scripts/test.js

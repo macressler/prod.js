@@ -1,0 +1,12 @@
+.test.success {
+  color: green;
+}
+
+.test.failure {
+  color: red;
+}
+
+.suite .suite,
+.test .callstack {
+  margin-left: 2em;
+}
