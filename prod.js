@@ -122,6 +122,7 @@ define(function() {
       setTimeout(function() {
         callbacks.afterTest(self._lastError);
         self._runTest(index, callbacks);
+        self._lastError = null;
       }, 0);
     }
     else {
