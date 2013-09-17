@@ -102,6 +102,10 @@ Output.prototype = {
         this._backtraces[this._fullName].push(msg);
       }
     }
+    else {
+      // user explicitly called console.log, probably
+      this.println(msg);
+    }
 
     if (this._callstack && !callstack) {
       this._callstack = false;
