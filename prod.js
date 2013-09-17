@@ -32,8 +32,12 @@ define(function() {
         this._testNames.push(key);
 
         if (options[key] instanceof test.Suite) {
-          options[key].wrapSetUp(this._setUp);
-          options[key].wrapTearDown(this._tearDown);
+          if (this._setUp) {
+            options[key].wrapSetUp(this._setUp);
+          }
+          if (this._tearDown) {
+            options[key].wrapTearDown(this._tearDown);
+          }
         }
       }
     }
