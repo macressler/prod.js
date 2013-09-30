@@ -450,17 +450,19 @@ define(function() {
 
   Logger.prototype.failure = function(error) {
     var callstack = [];
-    var lines = error.stack.split('\n');
-    for (var i = 0, len = lines.length; i < len; i++) {
-      var md;
-      if (lines[i].match(/^\s+at/)) {
-        callstack.push(lines[i].replace(/^\s*/, ""));
-      }
-      else if (md = lines[i].match(/^([^@]+)?@(.+?:\d+)$/)) {
-        callstack.push("at " + md[2]);
-      }
-      else {
-        callstack.push(lines[i]);
+    if (error.stack) {
+      var lines = error.stack.split('\n');
+      for (var i = 0, len = lines.length; i < len; i++) {
+        var md;
+        if (lines[i].match(/^\s+at/)) {
+          callstack.push(lines[i].replace(/^\s*/, ""));
+        }
+        else if (md = lines[i].match(/^([^@]+)?@(.+?:\d+)$/)) {
+          callstack.push("at " + md[2]);
+        }
+        else {
+          callstack.push(lines[i]);
+        }
       }
     }
     this.print({
