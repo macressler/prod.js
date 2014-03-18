@@ -41,7 +41,7 @@ define(function() {
       }
       aKeys.splice(index, 1);
 
-      if (!ave.deepEqual(a[key], b[key])) {
+      if (!test.deepEqual(a[key], b[key])) {
         return false;
       }
     }
