@@ -14,6 +14,45 @@ define(function() {
     });
   };
 
+  test.deepEqual = function(a, b) {
+    if (a === b) return true;
+    if (typeof(a) != typeof(b)) return false;
+    if (typeof(a) != 'object') return a == b;
+    if (a == null || b == null) return false;
+
+    if (a instanceof Array && b instanceof Array) {
+      if (a.length != b.length) return false;
+
+      for (var i = 0; i < a.length; ++i) {
+        if (a[i] !== b[i]) return false;
+      }
+      return true;
+    }
+
+    var aKeys = [];
+    for (var key in a) {
+      aKeys.push(key);
+    }
+
+    for (var key in b) {
+      var index = aKeys.indexOf(key);
+      if (index < 0) {
+        return false;
+      }
+      aKeys.splice(index, 1);
+
+      if (!ave.deepEqual(a[key], b[key])) {
+        return false;
+      }
+    }
+
+    if (aKeys.length > 0) {
+      return false;
+    }
+
+    return true;
+  };
+
   /* Suite */
   test.Suite = function(name, options) {
     this._name = name;
@@ -221,28 +260,7 @@ define(function() {
     if (typeof(message) == "undefined") {
       message = "expected: " + test.serialize(expected) + ", got: " + test.serialize(actual);
     }
-    this.assert(typeof(actual) == typeof(expected), message)
-    if (typeof(expected) == "object") {
-      var actualKeys = [];
-      for (var key in actual) {
-        actualKeys.push(key);
-      }
-
-      for (var key in expected) {
-        var index = actualKeys.indexOf(key);
-        if (index < 0) {
-          this.assert(false, message);
-        }
-        this.assertEquals(actual[key], expected[key]);
-        actualKeys.splice(index, 1);
-      }
-      if (actualKeys.length > 0) {
-        this.assert(false, message);
-      }
-    }
-    else {
-      this.assert(actual == expected, message);
-    }
+    this.assert(test.deepEqual(expected, actual), message);
   };
 
   Context.prototype.assertException = function(f, message) {
